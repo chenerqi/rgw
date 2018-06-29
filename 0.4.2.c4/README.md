@@ -8,67 +8,69 @@ Amazon S3 and Openstack* swift are well-known object storage solutions.
 COSBench now supports OpenStack* Swift and Amplidata v2.3, 2.5 and 3.1, as well as custom adaptors.
 
 
-Important Notice and Contact Information
-----------------------------------------
+## Installation
+1\. Download cosbench zip package from git
+2\. Add 6 drivers to start-all.sh, and add 6 driver sh
+```
+bash start-driver1.sh
+bash start-driver2.sh
+bash start-driver3.sh
+bash start-driver4.sh
+bash start-driver5.sh
+bash start-driver6.sh
+```
+3\. Add 6 drivers conf to conf\controller.conf
+```
+[controller]
+drivers = 6
+log_level = INFO
+log_file = log/system.log
+archive_dir = archive
 
-a) COSBench is not a product, and it does not have a full-time support team. Before you use this tool, please understand 
-the need to invest enough effort to learn how to use it effectively and to address possible bugs.
+[driver1]
+name = driver1
+url = http://127.0.0.1:28100/driver
 
-b) To help COSBench develop further, please become an active member of the community and consider giving back by making 
-contributions.
+[driver2]
+name = driver2
+url = http://127.0.0.1:28200/driver
 
-For other questions, contact jiangang.duan@intel.com or yaguang.wang@intel.com
+[driver3]
+name = driver3
+url = http://127.0.0.1:28300/driver
 
+[driver4]
+name = driver4
+url = http://127.0.0.1:28400/driver
 
-Licensing
----------
-
-a) Intel source code is being released under the Apache 2.0 license.
-
-b) Additional libraries used with COSBench have their own licensing; refer to 3rd-party-licenses.pdf for details.
-
-
-Distribution Packages
----------------------
-
-Please refer to "DISTRIBUTIONS.md" to get the link for distribution packages.
-
-
-Installation & Usage
---------------------
-
-Please refer to "COSBenchUserGuide.pdf" for details.
-
-
-Adaptor Development
--------------------
-If needed, adaptors can be developed for new storage services; please refer to "COSBenchAdaptorDevGuide.pdf" for details.
-
-
-Build
------
-If a build from source code is needed, please refer to BUILD.md for details.
+[driver5]
+name = driver5
+url = http://127.0.0.1:28500/driver
 
 
-Resources
----------
-Blog: TBD
+[driver6]
+name = driver6
+url = http://127.0.0.1:28600/driver
+```
+4\. Disable S3 MD5 validate check in cosbench-start.sh with "-Dcom.amazonaws.services.s3.disableGetObjectMD5Validation=true",
+this is to avoid high failure raito for read operation
+```
+/usr/bin/nohup java -Dcosbench.tomcat.config=$TOMCAT_CONFIG -Dcom.amazonaws.services.s3.disableGetObjectMD5Validation=true
+```
 
-Wiki: (https://github.com/intel-cloud/cosbench/wiki)
+5\. Notice don't user 127.0.0.1 for read/write test
 
-Issue tracking: (https://github.com/intel-cloud/cosbench/issues)
+6\. for ssd, check if osd restart is needed before test
 
-Mailing list: (http://cosbench.1094679.n5.nabble.com/)
-
-
-*Other names and brands may be claimed as the property of others.
-
-
-Other related projects
-----------------------
-COSBench-Workload-Generator: (https://github.com/giteshnandre/COSBench-Workload-Generator)
-
-COSBench-Plot: (https://github.com/icclab/cosbench-plot)
-
-
-= END =
+## User Guide
+1\. Write config xml file in s3testcase or swifttestcase follow the example
+2\. Submit one test
+```
+sh cli.sh submit s3testcase/s3write4k.xml 
+``` 
+3\. Cancel one test
+```
+sh cli.sh cancel w1 //w1 is the work id created by submit operation
+```
+4\. Check the report in the web
+http://<ip>:19088/controller/
