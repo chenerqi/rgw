@@ -1,0 +1,6 @@
+# rgw upstream servers
+# use this format: ip:port=weight
+
+# 127.0.0.1:7480=1
+# 127.0.0.1:7481=1
+# 127.0.0.2:7480=1

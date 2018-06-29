@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workload name="s3-gyc" description="gyc benchmark for s3">
+
+  <storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7480" />
+
+  <workflow>
+
+    <workstage name="init">
+      <work type="init" workers="2" config="cprefix=s3bucket;containers=r(1,60)" />
+    </workstage>
+
+    <workstage name="write">
+      <work name="rgw1" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7480" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(1,10);objects=r(1,1000);sizes=c(512)KB" />
+      </work>
+      <work name="rgw2" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7481" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(11,20);objects=r(1001,2000);sizes=c(512)KB" />
+      </work>
+      <work name="rgw3" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7482" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(21,30);objects=r(2001,3000);sizes=c(512)KB" />
+      </work>
+      <work name="rgw4" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7483" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(31,40);objects=r(3001,4000);sizes=c(512)KB" />
+      </work>
+      <work name="rgw5" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7484" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(41,50);objects=r(4001,5000);sizes=c(512)KB" />
+      </work>
+      <work name="rgw6" workers="64" runtime="600">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://127.0.0.1:7485" />
+        <operation type="write" ratio="100" config="cprefix=s3bucket;containers=r(51,60);objects=r(5001,6000);sizes=c(512)KB" />
+      </work>
+    </workstage>
+  </workflow>
+
+</workload>

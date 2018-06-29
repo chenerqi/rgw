@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workload name="s3-gyc" description="gyc benchmark for s3">
+
+  <storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+
+  <workflow>
+    <workstage name="read">
+      <work name="rgw1" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(1,700);objects=r(1,100);timeout=30000" />
+      </work>
+      <work name="rgw2" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(701,1400);objects=r(101,200);timeout=30000" />
+      </work>
+      <work name="rgw3" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(1401,2100);objects=r(201,300);timeout=30000" />
+      </work>
+      <work name="rgw4" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(2101,2800);objects=r(301,400);timeout=30000" />
+      </work>
+      <work name="rgw5" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(2801,3500);objects=r(401,500);timeout=30000" />
+      </work>
+      <work name="rgw6" workers="32" runtime="100">
+	<storage type="s3" config="accesskey=fooAccessKey;secretkey=fooSecretKey;endpoint=http://10.168.89.1:7480" />
+	<operation type="read" ratio="100" config="cprefix=s3bucket;containers=r(3501,4200);objects=r(501,600);timeout=30000" />
+      </work>
+    </workstage>
+  </workflow>
+
+</workload>

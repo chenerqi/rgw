@@ -1,0 +1,12 @@
+.rgw.control
+.rgw.gc
+.rgw.log
+.rgw.intent-log
+.rgw.usage
+.rgw.users.keys
+.rgw.users.email
+.rgw.buckets.data1
+.rgw.buckets.index1
+.rgw.users.swift
+.rgw.users.uid
+.rgw.data.root

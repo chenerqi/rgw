@@ -1,0 +1,8 @@
+listen              {{https_port}} ssl;
+ssl_certificate     {{crt_path}};
+ssl_certificate_key {{key_path}};
+{%- if force == "true" %}
+if ($scheme != "https") {
+    return 301 https://${host}:{{https_port}}${request_uri};
+}
+{%- endif -%}

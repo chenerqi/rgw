@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-80" ?>
+<workload name="swift-sample-read" description="sample benchmark for swift">
+
+  <storage type="swift" />
+  
+  <!-- Storage policies feature: http://docs.openstack.org/developer/swift/overview_architecture.html
+	<storage type="swift" config="policy=gold" />
+  -->
+  
+  <!-- MODIFY ME -->
+  <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.1:7480/auth/v1.0" />
+
+  <!-- Keystone Authentication 
+  <auth type="keystone" config="username=tester;password=testing;tenant_name=test;auth_url=http://127.0.0.1:5000/v2.0;service=swift service;region=regionOne" /> 
+  -->
+
+  <!-- bypass authentication, directly feed auth token  
+  <storage type="swift" config="token=AUTH_xxx;storage_url=http://192.168.10.1:8080/auth/v1.0" />	
+  -->
+	
+  <workflow>
+    <workstage name="read">
+      <work name="rgw1" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.1:7480/auth/v1.0" />
+        <storage type="swift"/>
+        <operation type="read" ratio="100" config="containers=r(1,10);objects=r(1,1000);timeout=30000" />
+      </work>
+      <work name="rgw2" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.1:7481/auth/v1.0" />
+        <storage type="swift"/>
+        <operation type="read" ratio="100" config="containers=r(11,20);objects=r(1001,2000);timeout=30000" />
+      </work>
+
+      <work name="rgw3" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.1:7482/auth/v1.0" />
+        <storage type="swift"/>
+        <operation type="read" ratio="100" config="containers=r(21,30);objects=r(2001,3000);timeout=30000" />
+      </work>
+
+     <work name="rgw4" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.3:7483/auth/v1.0" />
+        <storage type="swift"/>
+       <operation type="read" ratio="100" config="containers=r(31,40);objects=r(3001,4000);timeout=30000" />
+     </work>
+
+     <work name="rgw5" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.3:7484/auth/v1.0" />
+        <storage type="swift"/>
+       <operation type="read" ratio="100" config="containers=r(41,50);objects=r(4001,5000);timeout=30000" />
+     </work>
+
+     <work name="rgw6" workers="80" runtime="600">
+        <auth type="swauth" config="username=test:swift;password=8oeoCXlQsrOFFliq6MAhoSJmjGqB5RDtZeRS0EWP;url=http://10.168.89.3:7485/auth/v1.0" />
+        <storage type="swift"/>
+       <operation type="read" ratio="100" config="containers=r(51,60);objects=r(5001,6000);timeout=30000" />
+     </work>
+    </workstage>
+  </workflow>
+</workload>

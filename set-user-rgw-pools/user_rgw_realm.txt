@@ -1,0 +1,11 @@
+radosgw-admin zone delete --rgw-zone=default  
+radosgw-admin zonegroup delete --rgw-zonegroup=default
+radosgw-admin realm create --rgw-realm=gyc --default
+radosgw-admin zonegroup create --rgw-zonegroup=gyc --master --default
+radosgw-admin zone create --rgw-zonegroup=gyc --rgw-zone=gyc --master --default
+radosgw-admin zone placement rm --placement-id default-placement
+radosgw-admin zonegroup placement rm --placement-id default-placement
+radosgw-admin zone placement add --rgw-zone=gyc --placement-id=policy1 --index-pool=gyc.rgw.buckets.index1 --data-pool=gyc.rgw.buckets.data1 --data-extra-pool=gyc.rgw.buckets.index1
+radosgw-admin zonegroup placement add --rgw-zonegroup=gyc --placement-id=policy1
+radosgw-admin zonegroup placement default --rgw-zonegroup=gyc --placement-id=policy1
+radosgw-admin period update --commit
