@@ -25,8 +25,9 @@ if __name__ == "__main__":
         "ceph osd pool delete %s %s --yes-i-really-really-mean-it" % (pool, pool)
         print delete_pool_cmd
         os.system(delete_pool_cmd)
+    pg_num = 64
     create_pool_cmd = \
-    "ceph osd pool create %s %s %s replicated" % (pool, pg_num, pg_num)
+    "ceph osd pool create %s %s %s replicated data-rule" % (pool, pg_num, pg_num)
     print create_pool_cmd
     os.system(create_pool_cmd)
     
@@ -58,9 +59,13 @@ if __name__ == "__main__":
                 "ceph osd pool delete %s %s --yes-i-really-really-mean-it" % (pool, pool)
                 print delete_pool_cmd
                 os.system(delete_pool_cmd)
-                
+            
+	    if "index1" in pool or "data1" in pool:
+		pg_num = 200
+	    else:
+		pg_num = 64
             create_pool_cmd = \
-                   "ceph osd pool create %s %s %s replicated data_ruleset" % (pool, pg_num, pg_num)
+                   "ceph osd pool create %s %s %s replicated data-rule" % (pool, pg_num, pg_num)
 
             print create_pool_cmd
             os.system(create_pool_cmd)

@@ -9,3 +9,6 @@ radosgw-admin zone placement add --rgw-zone=gyc --placement-id=policy1 --index-p
 radosgw-admin zonegroup placement add --rgw-zonegroup=gyc --placement-id=policy1
 radosgw-admin zonegroup placement default --rgw-zonegroup=gyc --placement-id=policy1
 radosgw-admin period update --commit
+radosgw-admin user create --uid=ceq --display-name="chenerqi"
+radosgw-admin key create --uid=ceq --key-type=s3 --access-key fooAccessKey --secret-key fooSecretKey
+radosgw-admin quota set --uid=ceq --quota-scope=bucket --max_buckets=10000
