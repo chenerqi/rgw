@@ -62,6 +62,8 @@ this is to avoid high failure raito for read operation
 
 6\. for ssd, check if osd restart is needed before test
 
+7\. 随机写改为顺序写覆盖所有，xml的参数u改成r
+
 ## User Guide
 1\. Write config xml file in s3testcase or swifttestcase follow the example
 2\. Submit one test

@@ -31,16 +31,20 @@ bin conf COPYRIGHT luajit lualib nginx openssl pcre site zlib
 ```
 将附件中配置文件更新到openresty相关目录下：
 # 1 copy /object-routing/conf下的内容到/usr/local/openresty/conf/
+cp object-routing/conf /usr/local/openresty/
 [root@cephnode1 conf]# pwd
 /usr/local/openresty/conf
 [root@cephnode1 conf]# ls
 load-balancer-servers.conf  load-balancer-servers.conf.example  object-routing.conf  object-routing.conf.tmpl
  
 # 2 copy /object-routing/nginx/nginx.conf和/object-routing/nginx/conf.d目录到/usr/local/openresty/nginx/conf/
+cp -rf object-routing/nginx/nginx.conf /usr/local/openresty/nginx/conf/
+cp -r object-routing/nginx/conf.d /usr/local/openresty/nginx/conf/
 [root@cephnode1 conf]# pwd
 /usr/local/openresty/nginx/conf
  
 # copy /object-routing/nginx/lua目录到/usr/local/openresty/nginx/
+cp -rf object-routing/nginx/lua /usr/local/openresty/nginx/
 [root@cephnode1 nginx]# pwd
 /usr/local/openresty/nginx
 [root@cephnode1 nginx]# ls
